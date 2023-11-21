@@ -24,7 +24,7 @@ func createTestSuite(t *testing.T) testSuite {
 	// assert.NoError(t, err)
 
 	config := rest.Config{
-		GinMode: "debug",
+		GinMode: gin.DebugMode,
 		Client:  http.DefaultClient,
 	}
 
@@ -47,7 +47,7 @@ func TestHandlers(t *testing.T) {
 
 func (ts testSuite) runGetTests() {
 	ts.t.Run("GetRandomNameAndJoke", func(t *testing.T) {
-		url := "api/v1/random-name-with-joke"
+		url := "/random-name-with-joke"
 		request, err := http.NewRequest("GET", url, nil)
 		assert.NoError(t, err)
 
