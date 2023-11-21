@@ -26,6 +26,8 @@ type Joke struct {
 
 func Get(config rest.Config) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
+		//TODO: call auth.ValidateAccessToken() once auth0 tenant is set up
+
 		person, err := getPerson(config.Client)
 		if err != nil {
 			response := gin.H{"error": err.Error()}
