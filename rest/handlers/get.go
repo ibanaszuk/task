@@ -62,7 +62,7 @@ func getPerson(client *http.Client) (Person, error) {
 }
 
 func getJoke(client *http.Client) (Joke, error) {
-	//3 QUERY PARAMS: limitTo, firstName, lastName"
+	//TODO: limitTo, firstName, and lastName should be optional query params
 	url := "http://joke.loc8u.com:8888/joke?limitTo=nerdy&firstName=John&lastName=Doe"
 	body, err := getResponseBody(url, client)
 	if err != nil {

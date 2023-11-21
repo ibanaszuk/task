@@ -16,6 +16,7 @@ func New(config rest.Config) *gin.Engine {
 	//router.Use() custom recovery middleware
 
 	group := router.Group("/api/v1")
+	//TODO: limitTo, firstName, and lastName should be optional query params
 	group.GET("/random-name-with-joke", handlers.Get(config))
 	return router
 }
