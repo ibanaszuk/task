@@ -2,6 +2,7 @@ package router
 
 import (
 	"random-stuff-service/middleware/ratelimiter"
+	"random-stuff-service/middleware/recovery"
 	"random-stuff-service/rest"
 	"random-stuff-service/rest/handlers"
 
@@ -14,7 +15,7 @@ func New(config rest.Config) *gin.Engine {
 	router := gin.Default()
 	router.Use(cors.Default()) //TODO: replace with custom cors middleware
 	router.Use(ratelimiter.Ratelimiter())
-	//router.Use()
+	router.Use(gin.CustomRecovery(recovery.ErrorHandler()))
 
 	//TODO: limitTo, firstName, and lastName should be optional query params
 	router.GET("/random-name-with-joke", handlers.Get(config))

@@ -1,35 +1,21 @@
-# The Task
-Create a production ready web service which combines two existing web services.
-Fetch a random name from https://names.mcquay.me/api/v0
-Fetch a random Chuck Norris joke from http://joke.loc8u.com:8888/joke?limitTo=nerdy&firstName=John&lastName=Doe
-Combine the results and return them to the user.
+# Random stuff service
+This micro service is a golang docker container with 1 GET API that returns a random name with a random joke to the user. Other APIs in the future will also return random information to the user.
 
-# Time Guidelines
-We recommend you spend around 2 to 4 hours on this task.
-You should aim to at least have running code which meets the basic requirements of the task.
-Production ready is a broad goal: if you’re unable to fully meet it then please include clear 
-TODO comments in your code that are sufficiently detailed that another engineer could complete 
-the task without having to do additional design thinking and the result would match your vision of production readiness.
-Please let us know how much time you spent on the task when you submit your answer.
-## Further requirements:
-The web service should be written in Go.
-Write a README.md file which (at a minimum) provides instructions for running the web service.
-The web service should remain responsive under load and be able to support multiple concurrent requests.
-The code, README.md and any other supporting files should be compressed into a single archive and submitted for review or a git repo link.
+## Running the tests
+- go test -v auth/authenticator_test.go
+- go test -v middleware/ratelimiter/rate_limiter_test.go
+- go test -v middleware/recovery/recovery_test.go
+- go test -v rest/handlers/handlers_test.go
 
+## Running docker locally
+- bash ./scripts/redeploy-docker.sh
+- curl http://localhost:5000/random-name-with-joke
 
-# Example
-## Fetching a name
-```
-$ curl "https://names.mcquay.me/api/v0/"
-{“first_name”:“Hasina”,“last_name”:“Tanweer”}
-Fetching a joke
-$ curl "http://joke.loc8u.com:8888/joke?limitTo=nerdy&firstName=John&lastName=Doe"
-{ “type”: “success”, “value”: { “id”: 181, “joke”: “John Doe’s OSI network model has only one layer - Physical.“, “categories”: [“nerdy”] } }
-```
-
-## Using the new web service
-```
-$ curl "http://localhost:5000"
-Hasina Tanweer’s OSI network model has only one layer - Physical..
-```
+## Upcoming features in order to go to production
+- Set up auth0 tenant 
+    - call access token validator in API handler to gurantee user has right permissions
+- CI/CD Pipeline
+    - Need unit/integration test and docker deployment jobs
+- GET API query params
+    - limitTo, firstName, and lastName should be optional query params
+- Custom CORS Middleware
