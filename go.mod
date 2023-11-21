@@ -2,7 +2,10 @@ module random-stuff-service
 
 go 1.21.1
 
-require github.com/gin-gonic/gin v1.9.1
+require (
+	github.com/gin-gonic/gin v1.9.1
+	golang.org/x/time v0.4.0
+)
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
